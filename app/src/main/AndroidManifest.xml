@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".expandablelist.ExpandableListActivity"
+            android:name=".expandablelist.screen.ExpandableListActivity"
             android:theme="@style/Theme.MyApplication" />
     </application>
 
