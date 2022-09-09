@@ -26,6 +26,15 @@
         <activity
             android:name=".expandablelist.screen.ExpandableListActivity"
             android:theme="@style/Theme.MyApplication" />
+
+        <activity
+            android:name=".datastore.screen.DataStoreActivity"
+            android:theme="@style/Theme.MyApplication" />
+
+        <activity
+            android:name=".datastore.screen.DataStoreDetailsActivity"
+            android:theme="@style/Theme.MyApplication" />
+
     </application>
 
 </manifest>

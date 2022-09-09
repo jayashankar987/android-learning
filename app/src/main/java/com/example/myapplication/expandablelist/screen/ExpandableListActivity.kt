@@ -35,7 +35,7 @@ import com.example.myapplication.R
 import com.example.myapplication.base.AppTheme
 import com.example.myapplication.base.BaseActivity
 import com.example.myapplication.base.TopBar
-import com.example.myapplication.expandablelist.model.ExpandableListViewModel
+import com.example.myapplication.expandablelist.viewmodel.ExpandableListViewModel
 import com.example.myapplication.expandablelist.model.FaqModel
 
 class ExpandableListActivity : BaseActivity() {

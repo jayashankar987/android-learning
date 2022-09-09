@@ -39,6 +39,13 @@ fun TopBar() {
     }, backgroundColor = colorResource(id = R.color.purple_700), contentColor = Color.White)
 }
 
+@Composable
+fun TopBar(title: String) {
+    TopAppBar(title = {
+        Text(text = title, fontSize = 18.sp)
+    }, backgroundColor = colorResource(id = R.color.purple_700), contentColor = Color.White)
+}
+
 @Preview(showBackground = true)
 @Composable
 fun TopBarPreview() {

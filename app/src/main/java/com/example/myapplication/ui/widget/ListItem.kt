@@ -15,12 +15,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.myapplication.datastore.model.DataStoreDetails
 import com.example.myapplication.model.LearningDetails
 
 object ListItem {
 
     @Composable
-    fun ListItemCard(learningDetails: LearningDetails) {
+    fun LearningListItemCard(learningDetails: LearningDetails) {
         Card(
             modifier = Modifier
                 .padding(horizontal = 8.dp, vertical = 8.dp)
@@ -36,6 +37,25 @@ object ListItem {
                         style = TextStyle(color = Color.Black, fontSize = 22.sp)
                     )
                 }
+            }
+        }
+    }
+
+    @Composable
+    fun DataStoreListItemCard(dataStoreDetails: DataStoreDetails) {
+        Card(
+            modifier = Modifier
+                .padding(horizontal = 8.dp, vertical = 8.dp)
+                .fillMaxWidth(),
+            elevation = 2.dp,
+            backgroundColor = Color.LightGray,
+            shape = RoundedCornerShape(corner = CornerSize(8.dp))
+        ) {
+            Row(modifier = Modifier.padding(10.dp)) {
+                Column(modifier = Modifier.weight(1f), Arrangement.Center) {
+                    Text(text = dataStoreDetails.title, style = TextStyle(color = Color.Black, fontSize = 18.sp))
+                }
+
             }
         }
     }
