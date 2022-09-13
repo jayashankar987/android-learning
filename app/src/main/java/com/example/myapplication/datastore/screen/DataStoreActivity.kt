@@ -20,6 +20,7 @@ import com.example.myapplication.base.TopBar
 import com.example.myapplication.datastore.model.Data
 import com.example.myapplication.model.ItemType
 import com.example.myapplication.model.ItemType.DATASTORE_PREFERENCE
+import com.example.myapplication.model.ItemType.DATASTORE_PROTO
 import com.example.myapplication.ui.widget.ListItem
 
 class DataStoreActivity : BaseActivity() {
@@ -37,6 +38,11 @@ class DataStoreActivity : BaseActivity() {
                             DATASTORE_PREFERENCE -> {
                                 intent.apply {
                                     action = "data_store_preference"
+                                }
+                            }
+                            DATASTORE_PROTO -> {
+                                intent.apply {
+                                    action = "data_store_proto"
                                 }
                             }
                         }

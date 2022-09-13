@@ -1,6 +1,7 @@
 plugins {
   id 'com.android.application'
   id 'org.jetbrains.kotlin.android'
+  id "com.google.protobuf" version "0.8.17"
 }
 
 android {
@@ -61,4 +62,22 @@ dependencies {
   debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
 
   implementation "androidx.datastore:datastore-preferences:1.0.0"
+  implementation "androidx.datastore:datastore:1.0.0"
+  implementation "com.google.protobuf:protobuf-javalite:3.19.4"
+}
+
+protobuf {
+  protoc {
+    artifact = "com.google.protobuf:protoc:3.14.0"
+  }
+
+  generateProtoTasks {
+    all().each { task ->
+      task.builtins {
+        java {
+          option 'lite'
+        }
+      }
+    }
+  }
 }

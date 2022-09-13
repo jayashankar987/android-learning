@@ -34,6 +34,7 @@ import com.example.myapplication.R
 import com.example.myapplication.base.AppTheme
 import com.example.myapplication.base.BaseActivity
 import com.example.myapplication.base.TopBar
+import com.example.myapplication.datastore.SaveDataStore
 import com.example.myapplication.datastore.SavePreferenceData
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -44,14 +45,28 @@ import kotlinx.coroutines.launch
 class DataStoreDetailsActivity : BaseActivity() {
 
     private val savePreferenceData by lazy { SavePreferenceData(context = this) }
+    private val saveDataStore by lazy { SaveDataStore(context = this) }
 
     @OptIn(DelicateCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            InputDataView(savePreferenceData) {
-                GlobalScope.async {
-                    savePreferenceData.storeUserInfo(it.name, it.email)
+            if (intent.action == "data_store_preference") {
+                InputDataViewOther(savePreferenceData) {
+                    GlobalScope.async {
+                        savePreferenceData.storeUserInfo(it.name, it.email)
+                    }
+                }
+            } else {
+                InputDataView(saveDataStore) {
+                    GlobalScope.async {
+                        saveDataStore.saveStudentInfo(
+                            name = it.name,
+                            rollNo = it.rollNumber,
+                            mobile = it.mobile,
+                            stuClass = it.classInfo
+                        )
+                    }
                 }
             }
         }
@@ -59,9 +74,88 @@ class DataStoreDetailsActivity : BaseActivity() {
 }
 
 data class UserData(val name: String, val email: String)
+data class StudentInfo(val name: String, val mobile: String, val rollNumber: String, val classInfo: String)
 
 @Composable
-fun InputDataView(savePreferenceData: SavePreferenceData, onClick: (UserData) -> Unit) {
+fun InputDataView(saveDataStore: SaveDataStore, onClick: (StudentInfo) -> Unit) {
+    var name by remember { mutableStateOf(TextFieldValue("")) }
+    var mobile by remember { mutableStateOf(TextFieldValue("")) }
+    var classValue by remember { mutableStateOf(TextFieldValue("")) }
+    var rollNumber by remember { mutableStateOf(TextFieldValue("")) }
+
+    var nameString by remember { mutableStateOf("Hello") }
+    var classString by remember { mutableStateOf("World") }
+    var mobileString by remember { mutableStateOf("World") }
+    var rollNumberString by remember { mutableStateOf("World") }
+
+    val scope = rememberCoroutineScope()
+
+    AppTheme {
+        Scaffold(topBar = { TopBar(stringResource(id = R.string.data_store)) }) { it ->
+            Row(modifier = Modifier.padding(it)) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    TextWidget(value = nameString)
+                    Spacer(modifier = Modifier.padding(10.dp))
+                    TextWidget(value = rollNumberString)
+                    Spacer(modifier = Modifier.padding(10.dp))
+                    TextWidget(value = mobileString)
+                    Spacer(modifier = Modifier.padding(10.dp))
+                    TextWidget(value = classString)
+                    OutlinedTextField(
+                        value = name,
+                        onValueChange = { data -> name = data },
+                        label = { Text(text = "Enter your Name") },
+                        placeholder = { Text(text = "Enter Full Name") })
+
+                    OutlinedTextField(
+                        value = rollNumber,
+                        onValueChange = { data -> rollNumber = data },
+                        label = { Text(text = "Enter your roll number") },
+                        placeholder = { Text(text = "roll number") })
+
+                    OutlinedTextField(
+                        value = mobile,
+                        onValueChange = { data -> mobile = data },
+                        label = { Text(text = "Enter your roll number") },
+                        placeholder = { Text(text = "roll number") })
+
+                    OutlinedTextField(
+                        value = classValue,
+                        onValueChange = { data -> classValue = data },
+                        label = { Text(text = "Enter your roll number") },
+                        placeholder = { Text(text = "roll number") })
+
+                    ButtonWidget {
+                        onClick(
+                            StudentInfo(
+                                name = name.text,
+                                mobile = mobile.text,
+                                classInfo = classValue.text,
+                                rollNumber = rollNumber.text
+                            )
+                        )
+                        scope.launch {
+                            saveDataStore.studentInfo.collect {
+                                nameString = it.stuName
+                                rollNumberString = it.stuRollNumber
+                                mobileString = it.stuContactNumber
+                                classString = it.stuClass
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun InputDataViewOther(savePreferenceData: SavePreferenceData, onClick: (UserData) -> Unit) {
     var name by remember { mutableStateOf(TextFieldValue("")) }
     var email by remember { mutableStateOf(TextFieldValue("")) }
 
