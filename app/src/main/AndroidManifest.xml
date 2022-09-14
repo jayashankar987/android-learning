@@ -35,6 +35,10 @@
             android:name=".datastore.screen.DataStoreDetailsActivity"
             android:theme="@style/Theme.MyApplication" />
 
+        <activity
+            android:name=".composetraining.MainComposeActivity"
+            android:theme="@style/Theme.MyApplication" />
+
     </application>
 
 </manifest>

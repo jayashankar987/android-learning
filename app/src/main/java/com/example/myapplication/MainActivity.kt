@@ -17,9 +17,11 @@ import androidx.compose.ui.Modifier
 import com.example.myapplication.base.AppTheme
 import com.example.myapplication.base.BaseActivity
 import com.example.myapplication.base.TopBar
+import com.example.myapplication.composetraining.MainComposeActivity
 import com.example.myapplication.datastore.screen.DataStoreActivity
 import com.example.myapplication.expandablelist.screen.ExpandableListActivity
 import com.example.myapplication.model.ItemType
+import com.example.myapplication.model.ItemType.DATASTORE
 import com.example.myapplication.model.ItemType.EXPANDABLE_LIST_USING_COMPOSABLE
 import com.example.myapplication.model.LearningViewModel
 import com.example.myapplication.ui.widget.ListItem
@@ -42,8 +44,11 @@ class MainActivity : BaseActivity() {
                                 intent = Intent(context, ExpandableListActivity::class.java)
                             }
 
-                            else -> {
+                            DATASTORE -> {
                                 intent = Intent(context, DataStoreActivity::class.java)
+                            }
+                            else -> {
+                                intent = Intent(context, MainComposeActivity::class.java)
                             }
                         }
                         startActivity(intent)

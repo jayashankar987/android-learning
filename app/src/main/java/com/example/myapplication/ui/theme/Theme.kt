@@ -42,3 +42,8 @@ fun MyApplicationTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Com
         content = content
     )
 }
+
+@Composable
+fun ComposableTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
+    MaterialTheme(content = content, colors = if (darkTheme) DarkColorPalette else LightColorPalette)
+}
