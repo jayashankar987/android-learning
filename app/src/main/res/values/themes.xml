@@ -5,6 +5,4 @@
         <item name="android:statusBarColor">@color/purple_700</item>
         <item name="android:background">@color/purple_200</item>
     </style>
-
-    <style name="Theme.ComposableTutorial" parent="android:Theme.Material.Light.NoActionBar" />
 </resources>
