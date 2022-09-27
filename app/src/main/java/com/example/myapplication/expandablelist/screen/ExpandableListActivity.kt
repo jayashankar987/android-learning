@@ -46,14 +46,14 @@ class ExpandableListActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AppTheme {
-                mainContent(viewModel = viewModel)
+                MainContent(viewModel = viewModel)
             }
         }
     }
 }
 
 @Composable
-fun mainContent(viewModel: ExpandableListViewModel) {
+fun MainContent(viewModel: ExpandableListViewModel) {
     val itemIds by viewModel.itemIds.collectAsState()
     Scaffold(topBar = { TopBar() }) { paddingValues ->
         LazyColumn(modifier = Modifier.padding(paddingValues)) {

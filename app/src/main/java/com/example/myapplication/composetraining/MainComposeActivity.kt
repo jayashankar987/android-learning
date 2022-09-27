@@ -42,7 +42,7 @@ class MainComposeActivity : ComponentActivity() {
         setContent {
             ComposableTheme {
                 androidx.compose.material.Surface {
-                    showMessages(messageList = SampleData.conversationSample)
+                    ShowMessages(messageList = SampleData.conversationSample)
                 }
             }
         }
@@ -53,7 +53,7 @@ class MainComposeActivity : ComponentActivity() {
 data class Message(val author: String, val message: String)
 
 @Composable
-fun showMessage(message: Message) {
+fun ShowMessage(message: Message) {
     Row {
         Image(
             painter = painterResource(id = R.drawable.img_20220911_132817),
@@ -98,18 +98,18 @@ fun showMessage(message: Message) {
 }
 
 @Composable
-fun showMessages(messageList: List<Message>) {
+fun ShowMessages(messageList: List<Message>) {
     LazyColumn {
         items(messageList) { message ->
-            showMessage(message = message)
+            ShowMessage(message = message)
         }
     }
 }
 
 @Preview
 @Composable
-fun previewMessages() {
-    showMessages(messageList = SampleData.conversationSample)
+fun PreviewMessages() {
+    ShowMessages(messageList = SampleData.conversationSample)
 }
 
 @Preview(name = "Light Mode")
@@ -119,10 +119,10 @@ fun previewMessages() {
     name = "DARK MODE"
 )
 @Composable
-fun previewMessageCard() {
+fun PreviewMessageCard() {
     ComposableTheme {
         androidx.compose.material.Surface {
-            showMessage(Message("Hi", "How is it going on"))
+            ShowMessage(Message("Hi", "How is it going on"))
         }
     }
 }
